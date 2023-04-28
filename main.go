@@ -39,7 +39,6 @@ func ReadConfig() error {
 
 	Token = config.Token
 	BotPrefix = config.BotPrefix
-	fmt.Println("bot prefix:"+BotPrefix+".")
 
 	return nil
 }
@@ -54,7 +53,7 @@ func Start() {
 		fmt.Println(err.Error())
 		return
 	}
-
+	
 	u, err := goBot.User("@me")
 
 	if err != nil {
@@ -81,8 +80,9 @@ func messageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	if m.Content == BotPrefix+"ping" {
-		_, _ = s.ChannelMessageSend(m.ChannelID, "pong")
+	if m.Content == BotPrefix+"whoami" {
+		you := m.Author.Username
+		_, _ = s.ChannelMessageSend(m.ChannelID, "You are "+you+" silly!")
 	}
 }
 
